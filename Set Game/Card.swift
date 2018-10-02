@@ -10,19 +10,19 @@ import Foundation
 
 struct Card {
     
-    var isMatched = false
-    var isSelected = false
-    var identifier: Int
-    
-    private static var uniqueID = 0
-    
-    private static func getUniqueID() -> Int {
-        uniqueID += 1
-        
-        return uniqueID
-    }
-    
-    init() {
-        self.identifier = Card.getUniqueID()
-    }
+//    var isMatched = false
+//    var isSelected = false
+//    var identifier: Int
+//    
+//    private static var uniqueID = 0
+//    
+//    private static func getUniqueID() -> Int {
+//        uniqueID += 1
+//        
+//        return uniqueID
+//    }
+//    
+//    init() {
+//        self.identifier = Card.getUniqueID()
+//    }
 }

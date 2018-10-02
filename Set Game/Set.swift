@@ -9,8 +9,14 @@
 import Foundation
 
 class Concentration {
-    var cards = Array<Card>()
-    
-    var highlighted: Int?
-    
+//    var cards = Array<Card>()
+//
+//    var highlighted: Int?
+//
+//    init(numberOfCombinations: Int){
+//        for _ in 0..<numberOfCombinations{
+//            let card = Card()
+//            cards.append(card)
+//        }
+//    }
 }
