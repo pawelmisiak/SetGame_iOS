@@ -34,12 +34,11 @@ class Set {
     }
     
     func chooseCard(at index: Int) {
+        print(cards[index])
         
     }
     
-    init(cardsInDeck: Int) {
-        for _ in 0..<cardsInDeck {
-            addCardsToArray(numOfCards: cardsInDeck)
-        }
+    init() {
+        addCardsToArray(numOfCards: 81)
     }
 }
