@@ -15,14 +15,8 @@ class ViewController: UIViewController {
         highlight(withSymbol: "⭕️", on: sender)
     }
     
-    private lazy var game = Set(cardsInDeck: 81)
-//    func populateGameArray() {
-//        var symbols = ["∆","○","□"]
-//        var symbolCounts = [1,2,3]
-//        var colors = ["red", "green", "blue"]
-//        var shadings = ["full","striped","empty"]
-//        
-//    }
+//    private lazy var game = Set(cardsInDeck: 81)
+
 
   
     

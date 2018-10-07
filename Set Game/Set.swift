@@ -11,14 +11,35 @@ import Foundation
 class Set {
     var cards = Array<Card>()
     
+    func addCardsToArray(numOfCards: Int){
+        var card = Card()
+        var symbols = ["∆","○","□"]
+        var symbolCounts = [1,2,3]
+        var colors = ["red", "green", "blue"]
+        var shadings = ["full","striped","empty"]
+     
+        for i in 0..<3 {
+            for j in 0..<3 {
+                for k in 0..<3 {
+                    for l in 0..<3 {
+                        card.symbol = symbols[i]
+                        card.symbolCount = symbolCounts[j]
+                        card.color = colors[k]
+                        card.shade = shadings[l]
+                        cards += [card]
+                    }
+                }
+            }
+        }
+    }
+    
     func chooseCard(at index: Int) {
         
     }
     
     init(cardsInDeck: Int) {
-        for _ in 0..<cardsInDeck { // underscore says there is no var associated with this loop
-            let card = Card()
-            cards += [card]
+        for _ in 0..<cardsInDeck {
+            addCardsToArray(numOfCards: cardsInDeck)
         }
     }
 }
