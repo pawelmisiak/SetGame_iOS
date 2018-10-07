@@ -8,15 +8,17 @@
 
 import Foundation
 
-class Concentration {
-//    var cards = Array<Card>()
-//
-//    var highlighted: Int?
-//
-//    init(numberOfCombinations: Int){
-//        for _ in 0..<numberOfCombinations{
-//            let card = Card()
-//            cards.append(card)
-//        }
-//    }
+class Set {
+    var cards = Array<Card>()
+    
+    func chooseCard(at index: Int) {
+        
+    }
+    
+    init(cardsInDeck: Int) {
+        for _ in 0..<cardsInDeck { // underscore says there is no var associated with this loop
+            let card = Card()
+            cards += [card]
+        }
+    }
 }

@@ -9,26 +9,31 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view, typically from a nib.
-//    }
-    func populateGameArray() {
-        var symbols = ["∆","○","□"]
-        var count = [1,2,3]
-        var colors = ["red", "green", "blue"]
-        var shading = ["full","striped","empty"]
-        
-    }
-
+    
+    @IBOutlet var buttonArray: [UIButton]!
     @IBAction func touchCard(_ sender: UIButton) {
         highlight(withSymbol: "⭕️", on: sender)
     }
+    
+    private lazy var game = Set(cardsInDeck: 81)
+//    func populateGameArray() {
+//        var symbols = ["∆","○","□"]
+//        var symbolCounts = [1,2,3]
+//        var colors = ["red", "green", "blue"]
+//        var shadings = ["full","striped","empty"]
+//        
+//    }
+
+  
     
     func highlight(withSymbol symbol: String, on button: UIButton) {
         button.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
     }
     
-    @IBOutlet var buttonArray: [UIButton]!
+    private func updateViewFromModel() {
+//        for index in buttonArray.indices {
+//            let button = buttonArray[index]
+//
+//        }
+    }
 }
