@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     var visibleButtons = 12
     
     
+    
     @IBOutlet var buttonArray: [UIButton]!
     @IBAction func touchCard(_ sender: UIButton) {
         highlight(withSymbol: "", on: sender)
@@ -41,6 +42,16 @@ class ViewController: UIViewController {
             sender.isEnabled = false
             sender.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         }
+    }
+    
+    @IBAction func reset() {
+        for index in buttonArray.indices {
+            buttonArray[index].setTitle(" ", for: UIControl.State.normal)
+            buttonArray[index].backgroundColor = UIColor.white
+        }
+        game = Set()
+        visibleButtons = 12
+        viewDidLoad()
     }
     
     func highlight(withSymbol symbol: String, on button: UIButton) {
