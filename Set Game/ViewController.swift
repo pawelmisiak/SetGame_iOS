@@ -13,15 +13,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViewFromModel()
-        for i in 12..<buttonArray.count{
+        for i in visibleButtons..<buttonArray.count { // disable the hidden buttons and disable them
             buttonArray[i].isEnabled = false
-            buttonArray[i].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            buttonArray[i].isHidden = true
         }
     }
     
-    private var lastAddedCardIndex = 0
     private lazy var game = Set()
+    var visibleButtons = 12
+    
     
     @IBOutlet var buttonArray: [UIButton]!
     @IBAction func touchCard(_ sender: UIButton) {
@@ -34,16 +33,22 @@ class ViewController: UIViewController {
         }
         updateViewFromModel();
     }
+
+    @IBAction func addThree(_ sender: UIButton) {
+        visibleButtons += 3
+        updateViewFromModel()
+        if visibleButtons == 24 {
+            sender.isEnabled = false
+            sender.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        }
+    }
     
     func highlight(withSymbol symbol: String, on button: UIButton) {
         button.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-//        print("this works here \(button)")
     }
     
     func colorTheButton(card: Card,button: UIButton) -> UIButton {
         var title = card.symbol
-        
-        
         switch card.symbolCount {
         case 2:
             title = title + title
@@ -67,14 +72,16 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        for index in buttonArray.indices {
+        for index in 0..<visibleButtons {
             var currentButton = buttonArray[index]
+            if currentButton.backgroundColor == UIColor.white {
+                currentButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+                currentButton.isEnabled = true
+            }
             if currentButton.currentTitle == " " {
                 let currentCard = game.cards.remove(at: 0)
                 currentButton = colorTheButton(card: currentCard, button: currentButton)
             }
-            
         }
-//        print(lastAddedCardIndex)
     }
 }
