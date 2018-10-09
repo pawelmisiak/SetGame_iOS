@@ -404,6 +404,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="addThree" destination="p5p-UG-MrH" id="cG5-kj-gMn"/>
                         <outletCollection property="buttonArray" destination="h9o-lw-SNc" collectionClass="NSMutableArray" id="VKB-Qp-z58"/>
                         <outletCollection property="buttonArray" destination="fIT-yS-B7b" collectionClass="NSMutableArray" id="tC7-Lw-1D2"/>
                         <outletCollection property="buttonArray" destination="yHi-xa-QCc" collectionClass="NSMutableArray" id="dvy-1W-EUg"/>

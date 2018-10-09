@@ -35,13 +35,14 @@ class ViewController: UIViewController {
         updateViewFromModel();
     }
 
+    @IBOutlet weak var addThree: UIButton!
     @IBAction func addThree(_ sender: UIButton) {
         visibleButtons += 3
-        updateViewFromModel()
         if visibleButtons == 24 {
             sender.isEnabled = false
             sender.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         }
+        updateViewFromModel()
     }
     
     @IBAction func reset() {
@@ -49,9 +50,12 @@ class ViewController: UIViewController {
             buttonArray[index].setTitle(" ", for: UIControl.State.normal)
             buttonArray[index].backgroundColor = UIColor.white
         }
+        addThree.isEnabled = true
+        addThree.backgroundColor = #colorLiteral(red: 1, green: 0.09332232228, blue: 0, alpha: 1)
         game = Set()
         visibleButtons = 12
         viewDidLoad()
+        
     }
     
     func highlight(withSymbol symbol: String, on button: UIButton) {
