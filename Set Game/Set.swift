@@ -34,11 +34,17 @@ class Set {
     }
     
     func chooseCard(at index: Int) {
-        print(cards[index])
+//        print(cards[index])
         
     }
     
     init() {
         addCardsToArray(numOfCards: 81)
+        var decreasingIterator = cards.count-1
+        while decreasingIterator > 0 {
+            let rand = Int(arc4random_uniform(UInt32(decreasingIterator)))
+            cards.swapAt(decreasingIterator, rand)
+            decreasingIterator -= 1
+        }
     }
 }
