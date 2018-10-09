@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViewFromModel()
-        print(buttonArray.count)
         for i in 12..<buttonArray.count{
             buttonArray[i].isEnabled = false
             buttonArray[i].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -21,6 +20,7 @@ class ViewController: UIViewController {
         }
     }
     
+    private var lastAddedCardIndex = 0
     private lazy var game = Set()
     
     @IBOutlet var buttonArray: [UIButton]!
@@ -69,8 +69,12 @@ class ViewController: UIViewController {
     private func updateViewFromModel() {
         for index in buttonArray.indices {
             var currentButton = buttonArray[index]
-            let currentCard = game.cards[index]
-            currentButton = colorTheButton(card: currentCard, button: currentButton)
+            if currentButton.currentTitle == " " {
+                let currentCard = game.cards.remove(at: 0)
+                currentButton = colorTheButton(card: currentCard, button: currentButton)
+            }
+            
         }
+//        print(lastAddedCardIndex)
     }
 }
