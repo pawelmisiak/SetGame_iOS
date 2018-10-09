@@ -90,7 +90,7 @@ class ViewController: UIViewController {
         for index in 0..<visibleButtons {
             var currentButton = buttonArray[index]
             if currentButton.backgroundColor == UIColor.white {
-                currentButton.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+                currentButton.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
                 currentButton.isEnabled = true
             }
             if currentButton.currentTitle == " " {
