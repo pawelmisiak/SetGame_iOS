@@ -12,22 +12,12 @@ struct Card {
     
     var isMatched = false
     var isSelected = false
-    var identifier: Int
     var symbol: String
     var symbolCount: Int
     var color: String
     var shade: String
     
-    private static var uniqueID = 0
-    
-    private static func getUniqueID() -> Int {
-        uniqueID += 1
-        
-        return uniqueID
-    }
-    
     init() {
-        self.identifier = Card.getUniqueID()
         self.symbol = ""
         self.symbolCount = 0
         self.color = ""

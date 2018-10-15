@@ -21,11 +21,9 @@ class ViewController: UIViewController {
     private lazy var game = Set()
     var visibleButtons = 12
     
-    
-    
     @IBOutlet var buttonArray: [UIButton]!
     @IBAction func touchCard(_ sender: UIButton) {
-        highlight(withSymbol: "", on: sender)
+        highlight(on: sender)
         if let cardNumber = buttonArray.index(of: sender) {
             game.chooseCard(at: cardNumber)
             updateViewFromModel();
@@ -34,7 +32,11 @@ class ViewController: UIViewController {
         }
         updateViewFromModel();
     }
-
+    
+    func highlight(on button: UIButton) {
+        button.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+    }
+    
     @IBOutlet weak var addThree: UIButton!
     @IBAction func addThree(_ sender: UIButton) {
         visibleButtons += 3
@@ -44,24 +46,19 @@ class ViewController: UIViewController {
         }
         updateViewFromModel()
     }
-    
     @IBAction func reset() {
         for index in buttonArray.indices {
             buttonArray[index].setTitle(" ", for: UIControl.State.normal)
-            buttonArray[index].backgroundColor = UIColor.white
+            buttonArray[index].backgroundColor = UIColor.clear
+            buttonArray[index].setAttributedTitle(nil, for: UIControl.State.normal)
         }
         addThree.isEnabled = true
         addThree.backgroundColor = #colorLiteral(red: 1, green: 0.09332232228, blue: 0, alpha: 1)
         game = Set()
         visibleButtons = 12
         viewDidLoad()
-        
     }
-    
-    func highlight(withSymbol symbol: String, on button: UIButton) {
-        button.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-    }
-    
+
     func colorTheButton(card: Card,button: UIButton) -> UIButton {
         var title = card.symbol
         switch card.symbolCount {
@@ -73,23 +70,43 @@ class ViewController: UIViewController {
             break
         }
         
-        button.setTitle(title, for: UIControl.State.normal)
+        var outlineColor: UIColor
+        var fillColor: UIColor
         
         switch card.color {
-        case "red":
-            button.setTitleColor(#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), for: UIControl.State.normal)
-        case "green":
-            button.setTitleColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: UIControl.State.normal)
+        case "red": outlineColor = UIColor.red
+        case "green": outlineColor = UIColor.green
+        case "blue": outlineColor = UIColor.blue
         default:
-            button.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: UIControl.State.normal)
+            outlineColor = UIColor.white
         }
+        
+        fillColor = outlineColor
+        
+        switch card.shade{
+        case "full": fillColor = fillColor.withAlphaComponent(1)
+        case "striped": fillColor = fillColor.withAlphaComponent(0.3)
+        case "empty": fillColor = fillColor.withAlphaComponent(0.0)
+        default:
+            break
+        }
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: fillColor,
+            .strokeColor: outlineColor,
+            .strokeWidth: -5.0
+        ]
+        
+        let newString = NSAttributedString(string: title, attributes: attributes)
+        button.setAttributedTitle(newString, for: UIControl.State.normal)
+        button.setTitle(title, for: UIControl.State.normal)
         return button
     }
     
     private func updateViewFromModel() {
         for index in 0..<visibleButtons {
             var currentButton = buttonArray[index]
-            if currentButton.backgroundColor == UIColor.white {
+            if currentButton.backgroundColor != #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1) {
                 currentButton.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
                 currentButton.isEnabled = true
             }

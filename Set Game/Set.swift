@@ -11,9 +11,9 @@ import Foundation
 class Set {
     var cards = Array<Card>()
     
-    func addCardsToArray(numOfCards: Int){
+    private func addCardsToArray(numOfCards: Int){
         var card = Card()
-        var symbols = ["∆","○","□"]
+        var symbols = ["▲","●","■"]
         var symbolCounts = [1,2,3]
         var colors = ["red", "green", "blue"]
         var shadings = ["full","striped","empty"]
@@ -34,7 +34,7 @@ class Set {
     }
     
     func chooseCard(at index: Int) {
-//        print(cards[index])
+        print(cards[index])
         
     }
     
