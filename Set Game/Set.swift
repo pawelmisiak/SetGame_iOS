@@ -10,6 +10,7 @@ import Foundation
 
 class Set {
     var cards = Array<Card>()
+    var cardsChosen = 0
     
     private func addCardsToArray(numOfCards: Int){
         var card = Card()
@@ -39,7 +40,10 @@ class Set {
     }
     
     init() {
-        addCardsToArray(numOfCards: 81)
+        self.addCardsToArray(numOfCards: 81)
+        self.cardsChosen = 0
+        
+        // randomize
         var decreasingIterator = cards.count-1
         while decreasingIterator > 0 {
             let rand = Int(arc4random_uniform(UInt32(decreasingIterator)))
