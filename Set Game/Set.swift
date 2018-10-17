@@ -48,14 +48,42 @@ class Set {
         }
         cardsSelected.removeAll()
     }
+    func matchingColors(card1: Card, card2: Card,card3: Card) -> Bool{
+        if card1.color == card2.color && card2.color == card3.color {
+            return true
+        }
+        return false
+    }
+    func matchingSymbol(card1: Card, card2: Card,card3: Card) -> Bool{
+        if card1.symbol == card2.symbol && card2.symbol == card3.symbol {
+            return true
+        }
+        return false
+    }
+    func matchingSymbolCount(card1: Card, card2: Card,card3: Card) -> Bool{
+        if card1.symbolCount == card2.symbolCount && card2.symbolCount == card3.symbolCount {
+            return true
+        }
+        return false
+    }
+    func matchingShade(card1: Card, card2: Card,card3: Card) -> Bool{
+        if card1.shade == card2.shade && card2.shade == card3.shade {
+            return true
+        }
+        return false
+    }
+    
+    func checkForMatch() {
+        
+    }
     
     func chooseCard(at index: Int) {
         var currentCard = cardsOnTable[index]
         
         if cardsSelected.contains(currentCard){
-            print("yeah")
             cardsOnTable[index].isSelected = false
             cardsSelected = cardsSelected.filter{ $0 != currentCard }
+            print(cardsSelected.count)
             return
         }
         
@@ -67,7 +95,10 @@ class Set {
             deselectAll()
             chooseCard(at: index) // use recursion to automatically select another button without need of pressing on the button twice
         }
-//        print(cardsSelected.count)
+        if cardsSelected.count == 3 {
+            checkForMatch()
+        }
+        print(cardsSelected.count)
     }
     
     init() {
