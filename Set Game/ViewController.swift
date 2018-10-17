@@ -107,12 +107,11 @@ class ViewController: UIViewController {
             let currentCard = game.cardsOnTable[index]
             if currentCard.isSelected {
                 currentButton.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-            }
-            
-            if currentButton.backgroundColor != #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1) {
+            } else {
                 currentButton.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-                currentButton.isEnabled = true
             }
+            currentButton.isEnabled = true
+
             if currentButton.currentTitle == " " {
                 game.cardsOnTable[index] = game.cards[0]
                 let currentCard = game.cards.remove(at: 0)

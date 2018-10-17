@@ -42,14 +42,32 @@ class Set {
         }
     }
     
-    func chooseCard(at index: Int) {
-        if cardsSelected.count < 3 {
-            cardsOnTable[index].isSelected = true
-            cardsSelected.append(cardsOnTable[index])
-        } else {
-            
+    private func deselectAll() {
+        for index in 0..<cardsOnTable.count {
+            cardsOnTable[index].isSelected = false
         }
-        print(cardsSelected.count)
+        cardsSelected.removeAll()
+    }
+    
+    func chooseCard(at index: Int) {
+        var currentCard = cardsOnTable[index]
+        
+        if cardsSelected.contains(currentCard){
+            print("yeah")
+            cardsOnTable[index].isSelected = false
+            cardsSelected = cardsSelected.filter{ $0 != currentCard }
+            return
+        }
+        
+        if cardsSelected.count < 3 {
+                cardsOnTable[index].isSelected = true
+                cardsSelected.append(cardsOnTable[index])
+            
+        } else {
+            deselectAll()
+            chooseCard(at: index) // use recursion to automatically select another button without need of pressing on the button twice
+        }
+//        print(cardsSelected.count)
     }
     
     init() {
@@ -64,5 +82,11 @@ class Set {
             cards.swapAt(decreasingIterator, rand)
             decreasingIterator -= 1
         }
+    }
+}
+
+extension Card: Equatable {
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return lhs.color == rhs.color && lhs.symbol == rhs.symbol && lhs.shade == rhs.shade && lhs.symbolCount == rhs.symbolCount
     }
 }
