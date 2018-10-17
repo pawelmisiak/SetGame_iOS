@@ -10,7 +10,14 @@ import Foundation
 
 class Set {
     var cards = Array<Card>()
+    var cardsOnTable = Array<Card>()
     var cardsChosen = 0
+    
+    private func createEmptyArrayOfCards(){
+        for _ in 0...23{
+            cardsOnTable.append(Card())
+        }
+    }
     
     private func addCardsToArray(numOfCards: Int){
         var card = Card()
@@ -35,13 +42,14 @@ class Set {
     }
     
     func chooseCard(at index: Int) {
-        print(cards[index])
+        print(cardsOnTable[index])
         
     }
     
     init() {
         self.addCardsToArray(numOfCards: 81)
         self.cardsChosen = 0
+        self.createEmptyArrayOfCards()
         
         // randomize
         var decreasingIterator = cards.count-1

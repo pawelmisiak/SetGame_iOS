@@ -18,34 +18,6 @@ class ViewController: UIViewController {
         }
     }
     
-    private lazy var game = Set()
-    var visibleButtons = 12
-    
-    @IBOutlet var buttonArray: [UIButton]!
-    @IBAction func touchCard(_ sender: UIButton) {
-        highlight(on: sender)
-        if let cardNumber = buttonArray.index(of: sender) {
-            game.chooseCard(at: cardNumber)
-            updateViewFromModel();
-        } else {
-            print("Chosen card isn't in the cardButtons")
-        }
-        updateViewFromModel();
-    }
-    
-    func highlight(on button: UIButton) {
-        button.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-    }
-    
-    @IBOutlet weak var addThree: UIButton!
-    @IBAction func addThree(_ sender: UIButton) {
-        visibleButtons += 3
-        if visibleButtons == 24 {
-            sender.isEnabled = false
-            sender.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
-        }
-        updateViewFromModel()
-    }
     @IBAction func reset() {
         for index in buttonArray.indices {
             buttonArray[index].setTitle(" ", for: UIControl.State.normal)
@@ -58,6 +30,38 @@ class ViewController: UIViewController {
         visibleButtons = 12
         viewDidLoad()
     }
+    
+    private lazy var game = Set()
+    var visibleButtons = 12
+    
+    @IBOutlet var buttonArray: [UIButton]!
+    @IBOutlet weak var addThree: UIButton!
+    @IBAction func addThree(_ sender: UIButton) {
+        visibleButtons += 3
+        if visibleButtons == 24 {
+            sender.isEnabled = false
+            sender.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        }
+        updateViewFromModel()
+    }
+    
+    @IBAction func touchCard(_ sender: UIButton) {
+        highlight(on: sender)
+        if let cardNumber = buttonArray.index(of: sender) {
+            game.chooseCard(at: cardNumber)
+            print(cardNumber)
+            updateViewFromModel();
+        } else {
+            print("Chosen card isn't in the cardButtons")
+        }
+        updateViewFromModel();
+    }
+    
+    func highlight(on button: UIButton) {
+        button.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+    }
+    
+    
 
     func colorTheButton(card: Card,button: UIButton) -> UIButton {
         var title = card.symbol
@@ -104,6 +108,7 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
+        
         for index in 0..<visibleButtons {
             var currentButton = buttonArray[index]
             if currentButton.backgroundColor != #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1) {
@@ -111,6 +116,8 @@ class ViewController: UIViewController {
                 currentButton.isEnabled = true
             }
             if currentButton.currentTitle == " " {
+//                print(game.cards[0])
+                game.cardsOnTable[index] = game.cards[0]
                 let currentCard = game.cards.remove(at: 0)
                 currentButton = colorTheButton(card: currentCard, button: currentButton)
             }
