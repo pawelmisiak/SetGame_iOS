@@ -12,6 +12,7 @@ class Set {
     var cards = Array<Card>()
     var cardsOnTable = Array<Card>()
     var cardsChosen = 0
+    var cardsSelected = Array<Card>()
     
     private func createEmptyArrayOfCards(){
         for _ in 0...23{
@@ -42,8 +43,13 @@ class Set {
     }
     
     func chooseCard(at index: Int) {
-        print(cardsOnTable[index])
-        
+        if cardsSelected.count < 3 {
+            cardsOnTable[index].isSelected = true
+            cardsSelected.append(cardsOnTable[index])
+        } else {
+            
+        }
+        print(cardsSelected.count)
     }
     
     init() {
