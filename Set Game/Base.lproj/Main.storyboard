@@ -399,11 +399,19 @@
                                     <action selector="reset" destination="BYZ-38-t0r" eventType="touchUpInside" id="fJb-uk-cGH"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kw-JP-xSg">
+                                <rect key="frame" x="121" y="676" width="132" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="ScoreCount" destination="3kw-JP-xSg" id="WTB-de-EWD"/>
                         <outlet property="addThree" destination="p5p-UG-MrH" id="cG5-kj-gMn"/>
                         <outletCollection property="buttonArray" destination="h9o-lw-SNc" collectionClass="NSMutableArray" id="VKB-Qp-z58"/>
                         <outletCollection property="buttonArray" destination="fIT-yS-B7b" collectionClass="NSMutableArray" id="tC7-Lw-1D2"/>

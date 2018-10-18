@@ -13,6 +13,7 @@ class Set {
     var cardsOnTable = Array<Card>()
     var arrayOfMatchedCardIndices = Array<Int>()
     var cardsSelected = Array<Card>()
+    var score = Int()
     
     private func createEmptyArrayOfCards(){
         for _ in 0...23{
@@ -90,9 +91,11 @@ class Set {
             matchingShade(card1: card1, card2: card2, card3: card3) &&
             matchingSymbol(card1: card1, card2: card2, card3: card3) &&
             matchingSymbolCount(card1: card1, card2: card2, card3: card3){
-            print("Fuck Yeah")
+            score += 3
             return true
         }
+        score -= 1
+//        deselectAll()
         return false
     }
     
@@ -131,9 +134,8 @@ class Set {
     
     init() {
         self.addCardsToArray(numOfCards: 81)
-//        self.cardsChosen = 0
         self.createEmptyArrayOfCards()
-        
+        self.score = 0
         // randomize
         var decreasingIterator = cards.count-1
         while decreasingIterator > 0 {

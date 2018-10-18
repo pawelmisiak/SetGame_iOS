@@ -61,7 +61,8 @@ class ViewController: UIViewController {
         }
         updateViewFromModel();
     }
-
+    @IBOutlet weak var ScoreCount: UILabel!
+    
     func colorTheButton(card: Card,button: UIButton) -> UIButton {
         var title = card.symbol
         switch card.symbolCount {
@@ -107,7 +108,7 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        
+        ScoreCount.text = "Score: \(game.score)"
         for index in 0..<visibleButtons {
             var currentButton = buttonArray[index]
             let currentCard = game.cardsOnTable[index]
