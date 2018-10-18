@@ -49,6 +49,12 @@ class ViewController: UIViewController {
 //        highlight(on: sender)
         if let cardNumber = buttonArray.index(of: sender) {
             game.chooseCard(at: cardNumber)
+            if game.arrayOfMatchedCardIndices.count == 3 {
+                for index in game.arrayOfMatchedCardIndices {
+                    buttonArray[index].setTitle(" ", for: UIControl.State.normal)
+                    game.arrayOfMatchedCardIndices.removeAll()
+                }
+            }
             updateViewFromModel();
         } else {
             print("Chosen card isn't in the cardButtons")

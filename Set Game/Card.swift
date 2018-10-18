@@ -10,7 +10,8 @@ import Foundation
 
 struct Card {
     
-    var isMatched = false
+//    var isMatched = false
+    var cardIndex: Int
     var isSelected = false
     var symbol: String
     var symbolCount: Int
@@ -18,6 +19,7 @@ struct Card {
     var shade: String
     
     init() {
+        self.cardIndex = 0
         self.symbol = ""
         self.symbolCount = 0
         self.color = ""

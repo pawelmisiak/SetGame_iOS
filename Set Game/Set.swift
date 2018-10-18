@@ -11,7 +11,7 @@ import Foundation
 class Set {
     var cards = Array<Card>()
     var cardsOnTable = Array<Card>()
-//    var cardsChosen = 0
+    var arrayOfMatchedCardIndices = Array<Int>()
     var cardsSelected = Array<Card>()
     
     private func createEmptyArrayOfCards(){
@@ -85,13 +85,19 @@ class Set {
         return false
     }
     
-    func checkForMatch(card1: Card, card2: Card,card3: Card) {
+    func checkForMatch(card1: Card, card2: Card,card3: Card) -> Bool{
         if matchingColors(card1: card1, card2: card2, card3: card3) &&
             matchingShade(card1: card1, card2: card2, card3: card3) &&
             matchingSymbol(card1: card1, card2: card2, card3: card3) &&
             matchingSymbolCount(card1: card1, card2: card2, card3: card3){
             print("Fuck Yeah")
+            return true
         }
+        return false
+    }
+    
+    func returnIndices(cardArr: [Card]) -> [Int]{
+        return [cardArr[0].cardIndex, cardArr[1].cardIndex, cardArr[2].cardIndex]
     }
     
     func chooseCard(at index: Int) {
@@ -100,26 +106,27 @@ class Set {
         if cardsSelected.contains(currentCard){
             cardsOnTable[index].isSelected = false
             cardsSelected = cardsSelected.filter{ $0 != currentCard }
-            print(cardsSelected.count)
             return
         }
         
         if cardsSelected.count < 3 {
-                cardsOnTable[index].isSelected = true
-                cardsSelected.append(cardsOnTable[index])
+            cardsOnTable[index].isSelected = true
+            cardsOnTable[index].cardIndex = index
+            cardsSelected.append(cardsOnTable[index])
+            print(cardsSelected)
             
         } else {
             deselectAll()
             chooseCard(at: index) // use recursion to automatically select another button without need of pressing on the button twice
         }
-        print(cardsSelected.count)
-        if cardsSelected.count > 2 {
+        if cardsSelected.count == 3 {
             let card1 = cardsSelected[0]
             let card2 = cardsSelected[1]
             let card3 = cardsSelected[2]
-            checkForMatch(card1: card1, card2: card2, card3: card3)
+            if checkForMatch(card1: card1, card2: card2, card3: card3) {
+                arrayOfMatchedCardIndices = returnIndices(cardArr: cardsSelected)
+            }
         }
-        print(cardsSelected.count)
     }
     
     init() {
