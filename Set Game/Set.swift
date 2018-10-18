@@ -11,7 +11,7 @@ import Foundation
 class Set {
     var cards = Array<Card>()
     var cardsOnTable = Array<Card>()
-    var cardsChosen = 0
+//    var cardsChosen = 0
     var cardsSelected = Array<Card>()
     
     private func createEmptyArrayOfCards(){
@@ -52,10 +52,16 @@ class Set {
         if card1.color == card2.color && card2.color == card3.color {
             return true
         }
+        if card1.color != card2.color && card2.color != card3.color && card1.color != card3.color {
+            return true
+        }
         return false
     }
     func matchingSymbol(card1: Card, card2: Card,card3: Card) -> Bool{
         if card1.symbol == card2.symbol && card2.symbol == card3.symbol {
+            return true
+        }
+        if card1.symbol != card2.symbol && card2.symbol != card3.symbol && card1.symbol != card3.symbol {
             return true
         }
         return false
@@ -64,21 +70,32 @@ class Set {
         if card1.symbolCount == card2.symbolCount && card2.symbolCount == card3.symbolCount {
             return true
         }
+        if card1.symbolCount != card2.symbolCount && card2.symbolCount != card3.symbolCount && card1.symbolCount != card3.symbolCount {
+            return true
+        }
         return false
     }
     func matchingShade(card1: Card, card2: Card,card3: Card) -> Bool{
         if card1.shade == card2.shade && card2.shade == card3.shade {
             return true
         }
+        if card1.shade != card2.shade && card2.shade != card3.shade && card1.shade != card3.shade {
+            return true
+        }
         return false
     }
     
-    func checkForMatch() {
-        
+    func checkForMatch(card1: Card, card2: Card,card3: Card) {
+        if matchingColors(card1: card1, card2: card2, card3: card3) &&
+            matchingShade(card1: card1, card2: card2, card3: card3) &&
+            matchingSymbol(card1: card1, card2: card2, card3: card3) &&
+            matchingSymbolCount(card1: card1, card2: card2, card3: card3){
+            print("Fuck Yeah")
+        }
     }
     
     func chooseCard(at index: Int) {
-        var currentCard = cardsOnTable[index]
+        let currentCard = cardsOnTable[index]
         
         if cardsSelected.contains(currentCard){
             cardsOnTable[index].isSelected = false
@@ -95,15 +112,19 @@ class Set {
             deselectAll()
             chooseCard(at: index) // use recursion to automatically select another button without need of pressing on the button twice
         }
-        if cardsSelected.count == 3 {
-            checkForMatch()
+        print(cardsSelected.count)
+        if cardsSelected.count > 2 {
+            let card1 = cardsSelected[0]
+            let card2 = cardsSelected[1]
+            let card3 = cardsSelected[2]
+            checkForMatch(card1: card1, card2: card2, card3: card3)
         }
         print(cardsSelected.count)
     }
     
     init() {
         self.addCardsToArray(numOfCards: 81)
-        self.cardsChosen = 0
+//        self.cardsChosen = 0
         self.createEmptyArrayOfCards()
         
         // randomize
