@@ -51,11 +51,16 @@ class ViewController: UIViewController {
             game.chooseCard(at: cardNumber)
             if game.arrayOfMatchedCardIndices.count == 3 {
                 for index in game.arrayOfMatchedCardIndices {
-                    buttonArray[index].setTitle(" ", for: UIControl.State.normal)
-                    buttonArray[index].backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+                    if game.weGotAMatch{
+                        buttonArray[index].setTitle(" ", for: UIControl.State.normal)
+                        buttonArray[index].backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+                    }
+                    if game.wrongMatch{
+                        buttonArray[index].backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+                        game.cardsOnTable[index].isSelected = false
+                    }
                 }
                 game.arrayOfMatchedCardIndices.removeAll()
-                print(game.arrayOfMatchedCardIndices.count)
             }
             updateViewFromModel();
         } else {
@@ -111,8 +116,10 @@ class ViewController: UIViewController {
     
     private func updateViewFromModel() {
         ScoreCount.text = "Score: \(game.score)"
+        print("arrayOfMatchedCardsIndices \(game.arrayOfMatchedCardIndices.count)")
+        print("cardsSelected \(game.cardsSelected.count)")
         for index in 0..<visibleButtons {
-            if game.weGotAMatch == false {
+            if game.weGotAMatch == false && game.wrongMatch == false {
                 
             var currentButton = buttonArray[index]
             let currentCard = game.cardsOnTable[index]
@@ -130,9 +137,10 @@ class ViewController: UIViewController {
             }
             }
         }
-        if game.weGotAMatch == true {
+        if game.weGotAMatch || game.wrongMatch {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                 self.game.weGotAMatch = false
+                self.game.wrongMatch = false
                 self.updateViewFromModel()
             })
         }

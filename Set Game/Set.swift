@@ -98,6 +98,7 @@ class Set {
             return true
         }
         score -= 1
+        wrongMatch = true
 //        deselectAll()
         return false
     }
@@ -129,15 +130,13 @@ class Set {
             let card1 = cardsSelected[0]
             let card2 = cardsSelected[1]
             let card3 = cardsSelected[2]
-            if checkForMatch(card1: card1, card2: card2, card3: card3) {
-                arrayOfMatchedCardIndices = returnIndices(cardArr: cardsSelected)
-            } else {
-                wrongMatch = true
-            }
-        }
+            checkForMatch(card1: card1, card2: card2, card3: card3)
+            arrayOfMatchedCardIndices = returnIndices(cardArr: cardsSelected)
+            deselectAll()
+        
 //        if cardsSelected.count <= 3 && wrongMatch == true {
 //
-//        }
+        }
     }
     
     init() {
@@ -145,6 +144,7 @@ class Set {
         self.createEmptyArrayOfCards()
         self.score = 0
         self.weGotAMatch = false
+        self.wrongMatch = false
         
         
         // randomize
