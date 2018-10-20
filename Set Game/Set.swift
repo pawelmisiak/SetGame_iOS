@@ -14,6 +14,8 @@ class Set {
     var arrayOfMatchedCardIndices = Array<Int>()
     var cardsSelected = Array<Card>()
     var score = Int()
+    var weGotAMatch = false
+    var wrongMatch = false
     
     private func createEmptyArrayOfCards(){
         for _ in 0...23{
@@ -92,6 +94,7 @@ class Set {
             matchingSymbol(card1: card1, card2: card2, card3: card3) &&
             matchingSymbolCount(card1: card1, card2: card2, card3: card3){
             score += 3
+            weGotAMatch = true
             return true
         }
         score -= 1
@@ -116,7 +119,7 @@ class Set {
             cardsOnTable[index].isSelected = true
             cardsOnTable[index].cardIndex = index
             cardsSelected.append(cardsOnTable[index])
-            print(cardsSelected)
+            
             
         } else {
             deselectAll()
@@ -128,21 +131,29 @@ class Set {
             let card3 = cardsSelected[2]
             if checkForMatch(card1: card1, card2: card2, card3: card3) {
                 arrayOfMatchedCardIndices = returnIndices(cardArr: cardsSelected)
+            } else {
+                wrongMatch = true
             }
         }
+//        if cardsSelected.count <= 3 && wrongMatch == true {
+//
+//        }
     }
     
     init() {
         self.addCardsToArray(numOfCards: 81)
         self.createEmptyArrayOfCards()
         self.score = 0
+        self.weGotAMatch = false
+        
+        
         // randomize
-        var decreasingIterator = cards.count-1
-        while decreasingIterator > 0 {
-            let rand = Int(arc4random_uniform(UInt32(decreasingIterator)))
-            cards.swapAt(decreasingIterator, rand)
-            decreasingIterator -= 1
-        }
+//        var decreasingIterator = cards.count-1
+//        while decreasingIterator > 0 {
+//            let rand = Int(arc4random_uniform(UInt32(decreasingIterator)))
+//            cards.swapAt(decreasingIterator, rand)
+//            decreasingIterator -= 1
+//        }
     }
 }
 

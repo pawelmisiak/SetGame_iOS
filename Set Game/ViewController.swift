@@ -52,8 +52,10 @@ class ViewController: UIViewController {
             if game.arrayOfMatchedCardIndices.count == 3 {
                 for index in game.arrayOfMatchedCardIndices {
                     buttonArray[index].setTitle(" ", for: UIControl.State.normal)
-                    game.arrayOfMatchedCardIndices.removeAll()
+                    buttonArray[index].backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
                 }
+                game.arrayOfMatchedCardIndices.removeAll()
+                print(game.arrayOfMatchedCardIndices.count)
             }
             updateViewFromModel();
         } else {
@@ -110,6 +112,8 @@ class ViewController: UIViewController {
     private func updateViewFromModel() {
         ScoreCount.text = "Score: \(game.score)"
         for index in 0..<visibleButtons {
+            if game.weGotAMatch == false {
+                
             var currentButton = buttonArray[index]
             let currentCard = game.cardsOnTable[index]
             if currentCard.isSelected {
@@ -124,6 +128,13 @@ class ViewController: UIViewController {
                 let currentCard = game.cards.remove(at: 0)
                 currentButton = colorTheButton(card: currentCard, button: currentButton)
             }
+            }
+        }
+        if game.weGotAMatch == true {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                self.game.weGotAMatch = false
+                self.updateViewFromModel()
+            })
         }
     }
 }
