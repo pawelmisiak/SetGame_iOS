@@ -38,10 +38,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var addThree: UIButton!
     @IBAction func addThree(_ sender: UIButton) {
         visibleButtons += 3
-        if visibleButtons == 24 {
-            sender.isEnabled = false
-            sender.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
-        }
         updateViewFromModel()
     }
     
@@ -53,10 +49,12 @@ class ViewController: UIViewController {
                 for index in game.arrayOfMatchedCardIndices {
                     if game.weGotAMatch{
                         buttonArray[index].setTitle(" ", for: UIControl.State.normal)
-                        buttonArray[index].backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+                        buttonArray[index].backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+                        ScoreCount.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
                     }
                     if game.wrongMatch{
-                        buttonArray[index].backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+                        buttonArray[index].backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+                        ScoreCount.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
                         game.cardsOnTable[index].isSelected = false
                     }
                 }
@@ -114,31 +112,55 @@ class ViewController: UIViewController {
         return button
     }
     
+    func checkIfAllDisabled() -> Bool{
+        for index in 0..<visibleButtons{
+            if buttonArray[index].isEnabled == true {
+                return false
+            }
+        }
+        return true
+    }
+    
     private func updateViewFromModel() {
         ScoreCount.text = "Score: \(game.score)"
-        print("arrayOfMatchedCardsIndices \(game.arrayOfMatchedCardIndices.count)")
-        print("cardsSelected \(game.cardsSelected.count)")
+        
+        if checkIfAllDisabled() {
+            ScoreCount.text = "You have finished the game with score: \(game.score)"
+        }
+        
+        print(game.cards.count)
+        print(game.cardsOnTable.count)
+        if game.cards.count < 3 || visibleButtons == 24{
+            addThree.isEnabled = false
+            addThree.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        }
         for index in 0..<visibleButtons {
             if game.weGotAMatch == false && game.wrongMatch == false {
                 
             var currentButton = buttonArray[index]
             let currentCard = game.cardsOnTable[index]
             if currentCard.isSelected {
-                currentButton.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+                currentButton.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
             } else {
-                currentButton.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                currentButton.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             }
             currentButton.isEnabled = true
 
             if currentButton.currentTitle == " " {
-                game.cardsOnTable[index] = game.cards[0]
-                let currentCard = game.cards.remove(at: 0)
-                currentButton = colorTheButton(card: currentCard, button: currentButton)
+                if game.cards.count == 0 {
+                    currentButton.isEnabled = false
+                    currentButton.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                } else {
+                    game.cardsOnTable[index] = game.cards[0]
+                    let currentCard = game.cards.remove(at: 0)
+                    currentButton = colorTheButton(card: currentCard, button: currentButton)
+                }
             }
             }
         }
         if game.weGotAMatch || game.wrongMatch {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                self.ScoreCount.backgroundColor = UIColor.clear
                 self.game.weGotAMatch = false
                 self.game.wrongMatch = false
                 self.updateViewFromModel()

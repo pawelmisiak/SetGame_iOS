@@ -97,9 +97,8 @@ class Set {
             weGotAMatch = true
             return true
         }
-        score -= 1
+        score -= 3
         wrongMatch = true
-//        deselectAll()
         return false
     }
     
@@ -111,6 +110,7 @@ class Set {
         let currentCard = cardsOnTable[index]
         
         if cardsSelected.contains(currentCard){
+            score -= 1
             cardsOnTable[index].isSelected = false
             cardsSelected = cardsSelected.filter{ $0 != currentCard }
             return
@@ -147,13 +147,13 @@ class Set {
         self.wrongMatch = false
         
         
-        // randomize
-//        var decreasingIterator = cards.count-1
-//        while decreasingIterator > 0 {
-//            let rand = Int(arc4random_uniform(UInt32(decreasingIterator)))
-//            cards.swapAt(decreasingIterator, rand)
-//            decreasingIterator -= 1
-//        }
+//         randomize
+        var decreasingIterator = cards.count-1
+        while decreasingIterator > 0 {
+            let rand = Int(arc4random_uniform(UInt32(decreasingIterator)))
+            cards.swapAt(decreasingIterator, rand)
+            decreasingIterator -= 1
+        }
     }
 }
 
