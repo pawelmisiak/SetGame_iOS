@@ -51,24 +51,6 @@ class Set {
         }
         cardsSelected.removeAll()
     }
-    func matchingColors(card1: Card, card2: Card,card3: Card) -> Bool{
-        if card1.color == card2.color && card2.color == card3.color {
-            return true
-        }
-        if card1.color != card2.color && card2.color != card3.color && card1.color != card3.color {
-            return true
-        }
-        return false
-    }
-    func matchingSymbol(card1: Card, card2: Card,card3: Card) -> Bool{
-        if card1.symbol == card2.symbol && card2.symbol == card3.symbol {
-            return true
-        }
-        if card1.symbol != card2.symbol && card2.symbol != card3.symbol && card1.symbol != card3.symbol {
-            return true
-        }
-        return false
-    }
     func matchingSymbolCount(card1: Card, card2: Card,card3: Card) -> Bool{
         if card1.symbolCount == card2.symbolCount && card2.symbolCount == card3.symbolCount {
             return true
@@ -78,28 +60,30 @@ class Set {
         }
         return false
     }
-    func matchingShade(card1: Card, card2: Card,card3: Card) -> Bool{
-        if card1.shade == card2.shade && card2.shade == card3.shade {
+    
+    func matchingFunction(first: String, second: String, third: String) -> Bool{
+        
+        if first == second && second == third {
             return true
         }
-        if card1.shade != card2.shade && card2.shade != card3.shade && card1.shade != card3.shade {
+        if first != second && second != third && first != third {
             return true
         }
+        
         return false
     }
     
     func checkForMatch(card1: Card, card2: Card,card3: Card) -> Bool{
-        if matchingColors(card1: card1, card2: card2, card3: card3) &&
-            matchingShade(card1: card1, card2: card2, card3: card3) &&
-            matchingSymbol(card1: card1, card2: card2, card3: card3) &&
+        if matchingFunction(first: card1.color, second: card2.color, third: card3.color) &&
+            matchingFunction(first: card1.shade, second: card2.shade, third: card3.shade) &&
+            matchingFunction(first: card1.symbol, second: card2.symbol, third: card3.symbol) &&
             matchingSymbolCount(card1: card1, card2: card2, card3: card3){
-            score += 3
             weGotAMatch = true
             return true
+        }else {
+            wrongMatch = true
+            return false
         }
-        score -= 3
-        wrongMatch = true
-        return false
     }
     
     func returnIndices(cardArr: [Card]) -> [Int]{
@@ -137,6 +121,10 @@ class Set {
 //        if cardsSelected.count <= 3 && wrongMatch == true {
 //
         }
+    }
+    
+    func peak() {
+        
     }
     
     init() {

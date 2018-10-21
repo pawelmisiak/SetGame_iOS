@@ -33,12 +33,48 @@ class ViewController: UIViewController {
     
     private lazy var game = Set()
     var visibleButtons = 12
+    var peackedCard = Array<Card>()
     
     @IBOutlet var buttonArray: [UIButton]!
     @IBOutlet weak var addThree: UIButton!
     @IBAction func addThree(_ sender: UIButton) {
         visibleButtons += 3
         updateViewFromModel()
+    }
+    
+    
+    @IBAction func peakButton(_ sender: UIButton) {
+        game.score -= 4
+        var found = false
+        for i in 0..<visibleButtons{
+            for j in i+1..<visibleButtons{
+                for k in j+1..<visibleButtons{
+                    if game.checkForMatch(
+                        card1: game.cardsOnTable[i],
+                        card2: game.cardsOnTable[j],
+                        card3: game.cardsOnTable[k]) {
+                        print(i, j, k)
+                        found = true
+                        buttonArray[i].backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                        buttonArray[j].backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                        buttonArray[k].backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                        ScoreCount.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                            self.updateViewFromModel()
+                        })
+                    }
+                    if found{
+                        break
+                    }
+                }
+                if found{
+                    break
+                }
+            }
+            if found{
+                break
+            }
+        }
     }
     
     @IBAction func touchCard(_ sender: UIButton) {
@@ -51,8 +87,10 @@ class ViewController: UIViewController {
                         buttonArray[index].setTitle(" ", for: UIControl.State.normal)
                         buttonArray[index].backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
                         ScoreCount.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+//                        game.score += 3
                     }
                     if game.wrongMatch{
+//                        game.score -= 3
                         buttonArray[index].backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
                         ScoreCount.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
                         game.cardsOnTable[index].isSelected = false
@@ -161,6 +199,12 @@ class ViewController: UIViewController {
         if game.weGotAMatch || game.wrongMatch {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                 self.ScoreCount.backgroundColor = UIColor.clear
+                if self.game.weGotAMatch {
+                    self.game.score += 3
+                }
+                if self.game.wrongMatch {
+                    self.game.score -= 3
+                }
                 self.game.weGotAMatch = false
                 self.game.wrongMatch = false
                 self.updateViewFromModel()
